@@ -4,6 +4,7 @@ from pelper_ai import ai_suggestion, ai_suggestion_advance
 import os
 
 st.title('Pelper Calculator')
+st.text("- Created by Jaydeep Chakrabarty")      
 
 # Define card options
 card_options = [f'{rank}{suit}' for rank in ['A', 'K', 'Q', 'J', 'T',
@@ -93,8 +94,6 @@ for pos in other_positions:
         raise_amount = st.text_input(
             f"Raise amount by player in {pos}:", key=f'raise_{pos}')
         other_players_actions[pos] = (action, raise_amount)
-
-print (other_players_actions)
 
 # AI Suggestion Button
 if st.button('AI Suggest'):
