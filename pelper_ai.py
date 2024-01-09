@@ -42,3 +42,36 @@ def ai_suggestion(player_hand, community_cards, current_pot, raise_amount, my_po
 
     response = chain.invoke({"input": question})
     return response
+
+
+def ai_suggestion_advance(player_hand, community_cards, current_pot, 
+                          raise_amount, my_position, blind_size, 
+                          current_bank_roll, other_players_actions):
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", "You are world class poker player and poker odds calculator with ultimate knowledge of poker math."),
+        ("user", "{input}")
+    ])
+
+    output_parser = StrOutputParser()
+    chain = prompt | load_chat_model() | output_parser
+    print (other_players_actions)
+    community_cards = "Community Cards: " + community_cards + " after flop" if community_cards else "Its pre flop"
+    print ("CC:" + community_cards)
+
+    question = f"""In an online Texas NLH poker with max 6 player with {blind_size} INR For {player_hand} and 
+                {community_cards}  with pot size {current_pot} and raise amount of {raise_amount}
+                suggest what to do after you do the math of equity, pot odds, EV etc and also tell me why?
+                My current position is {my_position}.
+                This is what other players in different position did: {other_players_actions}
+
+                Do not give too lengthy answers, just one short paragraph.
+                Imagine that you are playing and you are thinking what to do next. Your bankroll is {current_bank_roll}.
+                All values are in Indian Rupees.
+                
+                Give me the result in this format: \n              
+
+                Final Suggestions: [Raise, Call, Fold] (Chose one of these three only) \n
+                Reason: [Reason for your suggestion] (Give a short reason for your suggestion)
+                """
+    response = chain.invoke({"input": question})
+    return response
