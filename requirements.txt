@@ -1,0 +1,6 @@
+streamlit
+poker
+langchain
+openai
+python-dotenv
+langchain-community
