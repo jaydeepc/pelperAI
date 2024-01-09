@@ -4,7 +4,7 @@ from pelper_ai import ai_suggestion
 import os
 
 st.title('Pelper Calculator')
-
+st.text("- Created by Jaydeep Chakrabarty")
 # Define card options
 card_options = [f'{rank}{suit}' for rank in ['A', 'K', 'Q', 'J', 'T',
                                              '9', '8', '7', '6', '5', '4', '3', '2'] for suit in ['s', 'h', 'd', 'c']]
